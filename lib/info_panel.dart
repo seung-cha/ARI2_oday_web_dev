@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'helper.dart';
 
+///Page where image and text is displayed
+
 class InformationPanel extends StatefulWidget {
   final String description;
   final String imagePath;

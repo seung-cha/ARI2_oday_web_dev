@@ -59,13 +59,16 @@ class MainScreenContainer extends StatefulWidget {
 }
 
 class _MainScreenContainerState extends State<MainScreenContainer> {
-  late Timer timer;
+  ///Automatically redirects to the lock screen after 30 seconds.
+  late Timer _timer;
+
+  ///List of buttons that redirect to different pages.
   List<Widget> selectables = [];
 
   @override
   void initState() {
     super.initState();
-    timer = Timer(const Duration(seconds: Helper.idleDuration), () {
+    _timer = Timer(const Duration(seconds: Helper.idleDuration), () {
       Helper.pageIndex.value = Helper.indexLockScreen;
     });
 
@@ -122,7 +125,7 @@ class _MainScreenContainerState extends State<MainScreenContainer> {
   @override
   void dispose() {
     super.dispose();
-    timer.cancel();
+    _timer.cancel();
   }
 
   @override

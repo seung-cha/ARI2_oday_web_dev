@@ -1,10 +1,15 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:video_player/video_player.dart';
 import 'helper.dart';
 import 'cat.dart';
 import 'ari.dart';
 import 'dart:async';
+import 'package:video_player_web/video_player_web.dart';
+import 'dart:convert';
+
+///This is a debugging page and won't be included later.
 
 class CatPage extends StatefulWidget {
   const CatPage({super.key});
@@ -14,6 +19,8 @@ class CatPage extends StatefulWidget {
 }
 
 class _CatPageState extends State<CatPage> {
+  late VideoPlayerController _controller;
+
   late Future<Cat> _cat;
   late Future<Uint8List> _item;
 
@@ -24,6 +31,16 @@ class _CatPageState extends State<CatPage> {
     super.initState();
     _cat = Cat.getCat();
     _item = Ari.camImage();
+
+    _controller = VideoPlayerController.networkUrl(Uri.parse(
+        "https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4"));
+    _controller.initialize().then(
+      (value) {
+        setState(
+          () {},
+        );
+      },
+    );
 
     timer = Timer.periodic(
       const Duration(milliseconds: 500),
@@ -40,6 +57,7 @@ class _CatPageState extends State<CatPage> {
   @override
   void dispose() {
     timer.cancel();
+    _controller.dispose();
     super.dispose();
   }
 
@@ -109,6 +127,13 @@ class _CatPageState extends State<CatPage> {
             left: 150,
             child: Text(
                 "${MediaQuery.of(context).size.width}x${MediaQuery.of(context).size.height}"),
+          ),
+          Positioned(
+            top: 0,
+            left: 700,
+            width: 300,
+            height: 300,
+            child: VideoPlayer(_controller),
           ),
           Helper.positionedBackButton(),
         ],

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'helper.dart';
 
+///Lockscreen.
+
 class LockScreenContainer extends StatefulWidget {
   const LockScreenContainer({super.key});
 

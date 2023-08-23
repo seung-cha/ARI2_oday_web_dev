@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'dart:developer' as developer;
 import 'package:http/http.dart' as http;
 
+///This is a debugging class to test http requests.
+
 class Cat {
   final String url;
   final int width;
