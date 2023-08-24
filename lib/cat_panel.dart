@@ -1,4 +1,5 @@
 import 'dart:typed_data';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
@@ -67,17 +68,21 @@ class _CatPageState extends State<CatPage> {
       child: Stack(
         children: [
           FutureBuilder<Uint8List>(
-              future: _item,
-              builder: (context, data) {
-                if (data.hasError || data.data == null) {
-                  return const Text("Something went wrong");
-                }
-                return Image.memory(
+            future: _item,
+            builder: (context, data) {
+              if (data.hasError || data.data == null) {
+                return const Text("Something went wrong");
+              }
+              return ImageFiltered(
+                imageFilter: ImageFilter.blur(),
+                child: Image.memory(
                   data.data!,
                   gaplessPlayback: true,
                   scale: 0.5,
-                );
-              }),
+                ),
+              );
+            },
+          ),
           FutureBuilder<Cat>(
             future: _cat,
             builder: (context, data) {

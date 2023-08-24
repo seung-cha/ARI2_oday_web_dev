@@ -1,64 +1,54 @@
 import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'helper.dart';
 import 'ari.dart';
+import 'package:flutter_animate/flutter_animate.dart';
+import 'joke.dart';
+import 'joke_page.dart';
+import 'dart:math';
 
-///Page where various demos are shown.
-///It's desinged to specifically showcase 6 options.
-
-Widget buttonCard(String title, String description, Function() onClick) {
+Widget itemBuilder(
+    String imagePath, String title, String description, Function onPressed,
+    {double width = 350, double height = 540}) {
   return TextButton(
     style: ButtonStyle(
-      padding: MaterialStateProperty.resolveWith(
-        (states) {
-          return const EdgeInsets.fromLTRB(8, 8, 8, 20);
-        },
-      ),
+      splashFactory: NoSplash.splashFactory,
+      overlayColor: MaterialStateProperty.all(Colors.transparent),
     ),
-    onPressed: onClick,
-    child: Container(
-      alignment: Alignment.center,
-      decoration: const BoxDecoration(
-        color: Color(0xFFFFFBE0),
-        borderRadius: BorderRadius.all(
-          Radius.circular(20),
-        ),
-      ),
-      child: Stack(
-        children: [
-          Align(
-            alignment: Alignment.topCenter,
-            child: Container(
-              alignment: Alignment.topCenter,
-              height: 50,
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(20),
-                  topRight: Radius.circular(20),
-                  bottomLeft: Radius.circular(4),
-                  bottomRight: Radius.circular(4),
-                ),
+    onPressed: () {
+      onPressed.call();
+    },
+    child: SizedBox(
+        width: width,
+        height: height,
+        child: Stack(
+          children: [
+            Align(
+              alignment: const Alignment(0, -0.8),
+              child: Image(
+                image: AssetImage(imagePath),
+                width: 150,
+                height: 150,
               ),
+            ),
+            Align(
+              alignment: const Alignment(0, -0.1),
               child: Text(
                 title,
-                style: const TextStyle(fontSize: 36, color: Colors.black),
                 textAlign: TextAlign.center,
+                style: const TextStyle(fontSize: 56, color: Colors.black),
               ),
             ),
-          ),
-          Align(
-            alignment: Alignment.center,
-            child: Text(
-              description,
-              style: const TextStyle(fontSize: 38, color: Colors.black),
-              textAlign: TextAlign.center,
+            Align(
+              alignment: const Alignment(0, 0.5),
+              child: Text(
+                description,
+                textAlign: TextAlign.center,
+                style: const TextStyle(fontSize: 32, color: Colors.black),
+              ),
             ),
-          ),
-        ],
-      ),
-    ),
+          ],
+        )),
   );
 }
 
@@ -70,60 +60,84 @@ class CapabilitiesPanel extends StatefulWidget {
 }
 
 class _CapabilitiesPanelState extends State<StatefulWidget> {
-  late Future<Uint8List> _item;
-
   @override
   void initState() {
     super.initState();
-    _item = Ari.camImage();
   }
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      child: Stack(
-        children: [
-          const Positioned(
-            top: 100,
-            left: 0,
-            width: Helper.screenWidth,
-            height: 100,
-            child: Text(
-              "What do you want me to show you?",
-              style: TextStyle(fontSize: 48),
-              textAlign: TextAlign.center,
-            ),
+    return Stack(
+      children: [
+        const Positioned(
+          top: 80,
+          left: 0,
+          width: Helper.screenWidth,
+          height: 100,
+          child: Text(
+            "What do you want me to show you?",
+            style: TextStyle(fontSize: 48),
+            textAlign: TextAlign.center,
           ),
-          Positioned(
-            top: 185,
-            left: 215,
-            width: 850,
-            height: 570,
-            child: Container(
-              decoration: const BoxDecoration(
-                color: Color(0xFFFFEE80),
-                borderRadius: BorderRadius.all(Radius.circular(20)),
-              ),
-              child: GridView.count(
-                padding: const EdgeInsets.symmetric(
-                    vertical: (850 / 570) * 8, horizontal: 8),
-                crossAxisCount: 3,
-                children: [
-                  buttonCard("Button1", "TTS", () {
-                    Ari.presentation('demo');
-                  }),
-                  buttonCard("Button2", "Motion", () {}),
-                  buttonCard("Button3", "Cam", () {}),
-                  buttonCard("Button4", "promo", () {}),
-                  buttonCard("Button5", "presentation", () {}),
-                  buttonCard("Button6", "another demo", () {}),
-                ],
-              ),
-            ),
+        ),
+        Positioned(
+          top: 170,
+          left: 90,
+          child: itemBuilder(
+            Helper.speechBubbleEmojiPath,
+            "Joke",
+            "I will tell you an uncle joke. I will be funny ;D",
+            () {
+              Joke.getJoke(programmingJoke: Random().nextInt(10) + 1 > 7).then(
+                (value) => {
+                  Helper.joke = value,
+                  Helper.pageIndex.value = Helper.indexJokePage
+                },
+              );
+            },
           ),
-          Helper.positionedBackButton(),
-        ],
-      ),
+        ).animate().fade(duration: const Duration(milliseconds: 600)).moveY(
+            duration: const Duration(milliseconds: 1000),
+            begin: 300,
+            curve: Curves.easeOutExpo),
+        Positioned(
+          top: 170,
+          left: 465,
+          child: itemBuilder(
+            Helper.playEmojiPath,
+            "Presentation",
+            "I will show you what I can do!",
+            () {},
+          ),
+        )
+            .animate()
+            .fade(
+                duration: const Duration(milliseconds: 600),
+                delay: const Duration(milliseconds: 100))
+            .moveY(
+                duration: const Duration(milliseconds: 1000),
+                begin: 300,
+                curve: Curves.easeOutExpo),
+        Positioned(
+          top: 170,
+          left: 840,
+          child: itemBuilder(
+            Helper.cameraEmojiPath,
+            "Camera",
+            "Temporary",
+            () {},
+          ),
+        )
+            .animate()
+            .fade(
+                duration: const Duration(milliseconds: 600),
+                delay: const Duration(milliseconds: 200))
+            .moveY(
+                duration: const Duration(milliseconds: 1000),
+                begin: 300,
+                curve: Curves.easeOutExpo),
+        Helper.positionedBackButton(),
+      ],
     );
   }
 }

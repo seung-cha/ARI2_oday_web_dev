@@ -77,6 +77,9 @@ flutter:
      - assets/images/lightbulb.png
      - assets/images/pencil.png
      - assets/images/wifi.png
+     - assets/images/Camera.png
+     - assets/images/Playcircle.png
+     - assets/images/Speechbubble.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

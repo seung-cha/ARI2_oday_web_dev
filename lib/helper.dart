@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'ari.dart';
+import 'joke.dart';
 
 ///This class contains various constants and helper functions.
 
@@ -12,6 +13,9 @@ class Helper {
   static const int indexCapabilities = 4;
   static const int indexfeedbackPage = 5;
   static const int indexCatPage = 6;
+  static const int indexJokePage = 7;
+
+  static late Joke joke;
 
   static ValueNotifier<int> pageIndex = ValueNotifier(indexLockScreen);
 
@@ -49,6 +53,50 @@ class Helper {
         ));
   }
 
+  static Widget itemBuilder(
+      int id, String imagePath, String title, String description, int toIndex,
+      {double width = 540, double height = 720}) {
+    return TextButton(
+      style: ButtonStyle(
+        splashFactory: NoSplash.splashFactory,
+        overlayColor: MaterialStateProperty.all(Colors.transparent),
+      ),
+      onPressed: () =>
+          {if (Helper.focusedItem == id) Helper.pageIndex.value = toIndex},
+      child: SizedBox(
+          width: width,
+          height: height,
+          child: Stack(
+            children: [
+              Align(
+                alignment: const Alignment(0, -0.6),
+                child: Image(
+                  image: AssetImage(imagePath),
+                  width: 250,
+                  height: 250,
+                ),
+              ),
+              Align(
+                alignment: const Alignment(0, 0.2),
+                child: Text(
+                  title,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(fontSize: 64, color: Colors.black),
+                ),
+              ),
+              Align(
+                alignment: const Alignment(0, 0.6),
+                child: Text(
+                  description,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(fontSize: 48, color: Colors.black),
+                ),
+              ),
+            ],
+          )),
+    );
+  }
+
   //bordered image
   static Widget roundedImage(
       double radius, String path, double width, double height) {
@@ -67,6 +115,9 @@ class Helper {
   static const lightBulbEmojiPath = 'images/lightbulb.png';
   static const pencilEmojiPath = 'images/pencil.png';
   static const wifiEmojiPath = 'images/wifi.png';
+  static const speechBubbleEmojiPath = 'images/Speechbubble.png';
+  static const playEmojiPath = 'images/Playcircle.png';
+  static const cameraEmojiPath = 'images/Camera.png';
   //------------------------------------------------
   //------------ Image -----------------------------
   static const ariImagePath = 'images/ari_face.jpg';

@@ -8,6 +8,7 @@ import 'cat_panel.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'ari.dart';
 import 'capabilities.dart';
+import 'joke_page.dart';
 
 class Master extends StatelessWidget {
   const Master({super.key});
@@ -78,6 +79,10 @@ class _MasterPageState extends State<MasterPage> {
                 case Helper.indexCapabilities:
                   Ari.speak(Helper.capabilitiesSpeech);
                   return const CapabilitiesPanel();
+
+                //Joke
+                case Helper.indexJokePage:
+                  return const JokePage();
                 default:
                   return const LockScreenContainer();
               }

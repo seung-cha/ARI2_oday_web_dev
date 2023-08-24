@@ -82,6 +82,16 @@ class Ari {
     );
   }
 
+  static void changeWeb() {
+    http.post(
+      Uri.parse('http://ari-27c/web_go_to'),
+      headers: {'Content-Type': 'application/json; charset=UTF-8'},
+      body: jsonEncode(
+        {'type': '2', 'value': 'http://10.68.0.130:8000'},
+      ),
+    );
+  }
+
   /// Return a string that can be appended to text
   /// to play motion and text-to-speech simultaneously.
   /// This string can be used alone to play motion via tts request.
