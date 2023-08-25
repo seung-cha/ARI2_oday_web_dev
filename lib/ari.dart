@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 import 'package:http/http.dart' as http;
 import 'dart:developer' as developer;
+import 'helper.dart';
 
 /// Refer to the REST interface page for a general list of http endpoints.
 /// http://docs.pal-robotics.com/ari/sdk/23.1/development/js-api.html
@@ -80,6 +81,40 @@ class Ari {
         },
       ),
     );
+  }
+
+  static Future<int> speechDuration(String str) async {
+    final response = await http.post(
+      Uri.parse('http://ari-27c/service/pal_get_tts_duration'),
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(
+        {
+          'rawtext': {
+            'text': str,
+            'lang_id': 'en_GB',
+          },
+        },
+      ),
+    );
+
+    if (response.statusCode == 201) {
+      final json = jsonDecode(response.body);
+      final List<dynamic> durations = json['response']['word_durations'];
+      int sum = 0;
+
+      for (dynamic i in durations) {
+        sum += i['nsecs'] as int;
+      }
+
+      // Helper.printWrapped("Sum: ${sum / 1000000000}");
+
+      ///Nanosecond to second
+      return sum ~/ 1000000000;
+    } else {
+      return -1;
+    }
   }
 
   static void changeWeb() {

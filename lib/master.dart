@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ari_page/tech_panel.dart';
 import 'lock_container.dart';
 import 'main_container.dart';
 import 'helper.dart';
@@ -80,6 +81,9 @@ class _MasterPageState extends State<MasterPage> {
                   Ari.speak(Helper.capabilitiesSpeech);
                   return const CapabilitiesPanel();
 
+                //Tech
+                case Helper.indexTechPage:
+                  return const TechPanel();
                 //Joke
                 case Helper.indexJokePage:
                   return const JokePage();

@@ -39,7 +39,8 @@ dependencies:
   flutter_animate: ^4.2.0+1
   http: ^1.1.0
   google_fonts: ^5.1.0
-  video_player: ^2.7.0
+  roslibdart: ^0.0.1-dev+4
+  
 
 dev_dependencies:
   flutter_test:

@@ -2,12 +2,12 @@ import 'dart:typed_data';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:video_player/video_player.dart';
+
 import 'helper.dart';
 import 'cat.dart';
 import 'ari.dart';
 import 'dart:async';
-import 'package:video_player_web/video_player_web.dart';
+import 'package:roslibdart/roslibdart.dart';
 import 'dart:convert';
 
 ///This is a debugging page and won't be included later.
@@ -20,12 +20,16 @@ class CatPage extends StatefulWidget {
 }
 
 class _CatPageState extends State<CatPage> {
-  late VideoPlayerController _controller;
-
   late Future<Cat> _cat;
   late Future<Uint8List> _item;
+  late Ros _ros;
 
-  late Timer timer;
+  String camOutput = "";
+
+  Future<void> subHandler(Map<String, dynamic> msg) async {
+    camOutput = msg['data'];
+    setState(() {});
+  }
 
   @override
   initState() {
@@ -33,32 +37,21 @@ class _CatPageState extends State<CatPage> {
     _cat = Cat.getCat();
     _item = Ari.camImage();
 
-    _controller = VideoPlayerController.networkUrl(Uri.parse(
-        "https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4"));
-    _controller.initialize().then(
-      (value) {
-        setState(
-          () {},
-        );
-      },
+    _ros = Ros(url: 'ws://ari-27c:9090');
+    final chatter = Topic(
+      ros: _ros,
+      name: '/head_front_camera/color/image_raw/compressed',
+      type: 'sensor_msgs/CompressedImage',
+      throttleRate: 100,
     );
 
-    timer = Timer.periodic(
-      const Duration(milliseconds: 500),
-      (t) {
-        setState(
-          () {
-            _item = Ari.camImage();
-          },
-        );
-      },
-    );
+    _ros.connect();
+    chatter.subscribe(subHandler);
   }
 
   @override
   void dispose() {
-    timer.cancel();
-    _controller.dispose();
+    _ros.close();
     super.dispose();
   }
 
@@ -67,22 +60,6 @@ class _CatPageState extends State<CatPage> {
     return SizedBox(
       child: Stack(
         children: [
-          FutureBuilder<Uint8List>(
-            future: _item,
-            builder: (context, data) {
-              if (data.hasError || data.data == null) {
-                return const Text("Something went wrong");
-              }
-              return ImageFiltered(
-                imageFilter: ImageFilter.blur(),
-                child: Image.memory(
-                  data.data!,
-                  gaplessPlayback: true,
-                  scale: 0.5,
-                ),
-              );
-            },
-          ),
           FutureBuilder<Cat>(
             future: _cat,
             builder: (context, data) {
@@ -133,12 +110,12 @@ class _CatPageState extends State<CatPage> {
             child: Text(
                 "${MediaQuery.of(context).size.width}x${MediaQuery.of(context).size.height}"),
           ),
-          Positioned(
-            top: 0,
-            left: 700,
-            width: 300,
-            height: 300,
-            child: VideoPlayer(_controller),
+          Align(
+            alignment: const Alignment(0.6, -0.5),
+            child: Image.memory(
+              base64Decode(camOutput),
+              gaplessPlayback: true,
+            ),
           ),
           Helper.positionedBackButton(),
         ],

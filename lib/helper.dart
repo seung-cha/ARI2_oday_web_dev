@@ -14,8 +14,11 @@ class Helper {
   static const int indexfeedbackPage = 5;
   static const int indexCatPage = 6;
   static const int indexJokePage = 7;
+  static const int indexTechPage = 8;
 
   static late Joke joke;
+  static late int jokeDuration1;
+  static late int jokeDuration2;
 
   static ValueNotifier<int> pageIndex = ValueNotifier(indexLockScreen);
 
@@ -106,6 +109,12 @@ class Helper {
         decoration: BoxDecoration(
             image: DecorationImage(image: AssetImage(path), fit: BoxFit.cover),
             borderRadius: BorderRadius.circular(radius)));
+  }
+
+  ///To be deleted
+  static void printWrapped(String text) {
+    final pattern = RegExp('.{1,800}'); // 800 is the size of each chunk
+    pattern.allMatches(text).forEach((match) => print(match.group(0)));
   }
 
   //------------ Emoji -----------------------------

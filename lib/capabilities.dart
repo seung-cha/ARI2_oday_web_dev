@@ -91,7 +91,17 @@ class _CapabilitiesPanelState extends State<StatefulWidget> {
               Joke.getJoke(programmingJoke: Random().nextInt(10) + 1 > 7).then(
                 (value) => {
                   Helper.joke = value,
-                  Helper.pageIndex.value = Helper.indexJokePage
+                  Ari.speechDuration(Helper.joke.line1).then(
+                    (value_) => {
+                      Helper.jokeDuration1 = value_ == -1 ? 5 : value_,
+                      Ari.speechDuration(Helper.joke.line2).then(
+                        (value_) => {
+                          Helper.jokeDuration2 = value_ == -1 ? 3 : value_,
+                          Helper.pageIndex.value = Helper.indexJokePage,
+                        },
+                      ),
+                    },
+                  ),
                 },
               );
             },
@@ -125,7 +135,9 @@ class _CapabilitiesPanelState extends State<StatefulWidget> {
             Helper.cameraEmojiPath,
             "Camera",
             "Temporary",
-            () {},
+            () {
+              Helper.pageIndex.value = Helper.indexTechPage;
+            },
           ),
         )
             .animate()

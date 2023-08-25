@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'helper.dart';
 import 'dart:async';
+import 'ari.dart';
 
 class JokePage extends StatefulWidget {
   const JokePage({super.key});
@@ -18,6 +19,7 @@ class _JokePageState extends State<JokePage> {
   void initState() {
     super.initState();
     line = Helper.joke.line1;
+    Ari.speak(line);
   }
 
   @override
@@ -28,11 +30,12 @@ class _JokePageState extends State<JokePage> {
         style: const TextStyle(fontSize: 28),
       )
           .animate(
-            delay: Duration(milliseconds: 4000),
+            delay: Duration(seconds: Helper.jokeDuration1 + 2),
             onPlay: (controller) {
               setState(
                 () {
                   line = Helper.joke.line2;
+                  Ari.speak(line);
                 },
               );
             },
@@ -41,7 +44,7 @@ class _JokePageState extends State<JokePage> {
             },
           )
           .then(
-            delay: Duration(milliseconds: 4000),
+            delay: Duration(seconds: Helper.jokeDuration2 + 2),
           ),
     );
   }
