@@ -36,7 +36,7 @@ Widget itemBuilder(
               child: Text(
                 title,
                 textAlign: TextAlign.center,
-                style: const TextStyle(fontSize: 56, color: Colors.black),
+                style: const TextStyle(fontSize: 48, color: Colors.black),
               ),
             ),
             Align(
@@ -85,7 +85,7 @@ class _CapabilitiesPanelState extends State<StatefulWidget> {
           left: 90,
           child: itemBuilder(
             Helper.speechBubbleEmojiPath,
-            "Joke",
+            "JOKE",
             "I will tell you an uncle joke. I will be funny ;D",
             () {
               Joke.getJoke(programmingJoke: Random().nextInt(10) + 1 > 7).then(
@@ -115,9 +115,11 @@ class _CapabilitiesPanelState extends State<StatefulWidget> {
           left: 465,
           child: itemBuilder(
             Helper.playEmojiPath,
-            "Presentation",
+            "PRESENTATION",
             "I will show you what I can do!",
-            () {},
+            () {
+              Ari.presentation('demo');
+            },
           ),
         )
             .animate()
@@ -133,8 +135,8 @@ class _CapabilitiesPanelState extends State<StatefulWidget> {
           left: 840,
           child: itemBuilder(
             Helper.cameraEmojiPath,
-            "Camera",
-            "Temporary",
+            "STATS FOR NERDS",
+            "Other data from the robot",
             () {
               Helper.pageIndex.value = Helper.indexTechPage;
             },

@@ -135,17 +135,22 @@ class Helper {
   //------------ Str -------------------------------
 
   ///Each text contains two strings; one for display and the other for tts.
-  static const ariIntroductionStr = "Welcome to the Open Day! I'm Ari."
-      " I am a multi-modal humanoid robot currently serving as an assistant robot."
-      " If you want to know more about my capabilities, check out the \"MY CAPABILITIES\" section!";
+  static const ariIntroductionStr = "Hi! I'm Ari."
+      " I am a social humanoid robot currently serving as an assistant robot."
+      " If you want to know more about what I can do, check out the \"Interaction\" section!";
 
-  static final ariIntroductionSpeech =
-      "${Ari.toAction('wave')}Welcome to the Open Day! I'm Ari."
-      " I am a multi-modal humanoid robot currently serving as an assistant robot."
-      " ${Ari.toAction('nod')}If you want to know more about my capabilities, check out the \"MY CAPABILITIES\" section!";
+  static final ariIntroductionSpeech = "${Ari.toAction('wave')}Hi! I'm Ari."
+      " I am a social humanoid robot currently serving as an assistant robot."
+      " ${Ari.toAction('nod')}If you want to know more about what I can do, check out the interaction section!";
 
-  static const odayStr = "odayString to Here";
-  static final odaySpeech = "oday speech go here";
+  static const odayStr =
+      "Step into a world of possibilities at UNSW's Open Day!"
+      " From exploring innovative programs to connecting with passionate faculty members, "
+      "this event is your gateway to discovering the exciting academic journey that awaits you.";
+  static final odaySpeech =
+      "${Ari.toAction('look_around')}Step into a world of possibilities at U-N-S-W's Open Day!"
+      " From exploring innovative programs to connecting with passionate faculty members, "
+      "this event is your gateway to discovering${Ari.toAction('show_left')} the exciting academic journey that awaits you.";
 
   static const feedbackStr = "Thank you for your interest in the robot!"
       " This robot is currently being developed as my research project."
@@ -156,5 +161,5 @@ class Helper {
       " This robot is currently being developed as my research project."
       " Scan the QR code and leave me a feedback! your feedback is greatly appreciated!";
 
-  static final capabilitiesSpeech = "What do you want me to show you?";
+  static const capabilitiesSpeech = "What do you want me to show you?";
 }

@@ -30,7 +30,7 @@ class _MainScreenContainerState extends State<MainScreenContainer> {
     });
 
     //Make ARI say something
-    Ari.speak("Please touch the screen to begin.");
+    Ari.speak("${Ari.toAction('alive_7')}Please touch the screen to begin.");
 
     //Add items, in order
 
@@ -39,7 +39,7 @@ class _MainScreenContainerState extends State<MainScreenContainer> {
       child: Helper.itemBuilder(
           selectables.length,
           Helper.lightBulbEmojiPath,
-          'MY CAPABILITIES',
+          'INTERACTION',
           'Want To See What I Can Do?',
           Helper.indexCapabilities),
     ));
@@ -56,12 +56,8 @@ class _MainScreenContainerState extends State<MainScreenContainer> {
 
     //Why UNSW
     selectables.add(SizedBox(
-      child: Helper.itemBuilder(
-          selectables.length,
-          Helper.medalEmojiPath,
-          'WHY UNSW',
-          'Discover What Makes UNSW Ideal For You',
-          Helper.indexOdayPage),
+      child: Helper.itemBuilder(selectables.length, Helper.medalEmojiPath,
+          'WELCOME', 'Welcome to Oday!', Helper.indexOdayPage),
     ));
 
     //Feedback
@@ -69,11 +65,11 @@ class _MainScreenContainerState extends State<MainScreenContainer> {
       child: Helper.itemBuilder(
           selectables.length,
           Helper.pencilEmojiPath,
-          'Feedback',
+          'FEEDBACK',
           'Do You Like The Robot? Leave Me a Feedback!',
           Helper.indexfeedbackPage),
     ));
-
+    /*
     //Cat
     selectables.add(SizedBox(
       child: Helper.itemBuilder(selectables.length, Helper.wifiEmojiPath, 'Cat',
@@ -89,6 +85,7 @@ class _MainScreenContainerState extends State<MainScreenContainer> {
           'Temporary Button Reserved for Later Use',
           Helper.indexLockScreen),
     ));
+    */
   }
 
   @override

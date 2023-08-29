@@ -18,6 +18,7 @@ class _TechPanelState extends State<TechPanel> {
   late Uint8List camOutput;
   late Uint8List binaryCamOutput;
   late Uint8List thermalCamOutput;
+  late dynamic orientationOutput;
 
   String speech = "";
 
@@ -43,9 +44,19 @@ class _TechPanelState extends State<TechPanel> {
     setState(() {});
   }
 
+  Future<void> debugPrint(Map<String, dynamic> msg) async {
+    Helper.printWrapped(msg['pose']['orientation'].toString());
+  }
+
+  Future<void> subscribeAudioLocation(Map<String, dynamic> msg) async {
+    orientationOutput = msg['pose']['orientation'];
+  }
+
   Future<void> init() async {
     _ros = Ros(url: 'ws://ari-27c:9090');
     _ros.connect();
+
+    orientationOutput = List.empty();
 
     final camTopic = Topic(
       ros: _ros,
@@ -76,10 +87,18 @@ class _TechPanelState extends State<TechPanel> {
         type: 'hri_msgs/LiveSpeech',
         throttleRate: 100);
 
+    final audioLocalTopic = Topic(
+        ros: _ros,
+        name: '/audio/sound_localization',
+        type: 'geometry_msgs/PoseStamped',
+        throttleRate: 100);
+
     await camTopic.subscribe(subscribeCamOutput);
     await binaryTopic.subscribe(subscribeBinaryCamoutput);
     await thermalTopic.subscribe(subscribeThermalCamoutput);
     await ttsTopic.subscribe(subscribeTTS);
+
+    await audioLocalTopic.subscribe(subscribeAudioLocation);
   }
 
   @override
@@ -125,27 +144,43 @@ class _TechPanelState extends State<TechPanel> {
           ),
         ),
         const Positioned(
-          top: 500,
+          top: 470,
           left: 0,
           child: Text(
             "Camera outputs (Normal|Binary|Thermal)",
-            style: TextStyle(fontSize: 36),
+            style: TextStyle(fontSize: 16),
           ),
         ),
         const Positioned(
-          top: 600,
+          top: 490,
           left: 0,
           child: Text(
             "Voice Recognition",
-            style: TextStyle(fontSize: 36),
+            style: TextStyle(fontSize: 16),
           ),
         ),
         Positioned(
-          top: 650,
+          top: 510,
           left: 0,
           child: Text(
             speech,
-            style: const TextStyle(fontSize: 28),
+            style: const TextStyle(fontSize: 16),
+          ),
+        ),
+        const Positioned(
+          top: 530,
+          left: 0,
+          child: Text(
+            'Audio Detection Orientation',
+            style: TextStyle(fontSize: 16),
+          ),
+        ),
+        Positioned(
+          top: 550,
+          left: 0,
+          child: Text(
+            orientationOutput.toString(),
+            style: const TextStyle(fontSize: 16),
           ),
         ),
         Helper.positionedBackButton(index: Helper.indexCapabilities),
