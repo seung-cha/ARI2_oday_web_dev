@@ -70,7 +70,7 @@ class _MasterPageState extends State<MasterPage> {
                   Ari.speak(Helper.feedbackSpeech);
                   return const InformationPanel(
                     description: Helper.feedbackStr,
-                    imagePath: Helper.pencilEmojiPath,
+                    imagePath: Helper.qrCodePath,
                     emojiPath: Helper.pencilEmojiPath,
                   );
                 //Cat
@@ -80,7 +80,6 @@ class _MasterPageState extends State<MasterPage> {
                 case Helper.indexCapabilities:
                   Ari.speak(Helper.capabilitiesSpeech);
                   return const CapabilitiesPanel();
-
                 //Tech
                 case Helper.indexTechPage:
                   return const TechPanel();

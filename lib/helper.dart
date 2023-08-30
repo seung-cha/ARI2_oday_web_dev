@@ -127,6 +127,7 @@ class Helper {
   static const speechBubbleEmojiPath = 'images/Speechbubble.png';
   static const playEmojiPath = 'images/Playcircle.png';
   static const cameraEmojiPath = 'images/Camera.png';
+  static const qrCodePath = 'images/qrcode.jpg';
   //------------------------------------------------
   //------------ Image -----------------------------
   static const ariImagePath = 'images/ari_face.jpg';
