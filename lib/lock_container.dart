@@ -1,4 +1,6 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
+import 'ari.dart';
 import 'helper.dart';
 
 ///Lockscreen.
@@ -13,6 +15,7 @@ class LockScreenContainer extends StatefulWidget {
 class _LockScreenContainerState extends State<LockScreenContainer>
     with SingleTickerProviderStateMixin {
   late AnimationController _blinkingTextController;
+  late Timer _timer;
 
   @override
   void initState() {
@@ -25,12 +28,21 @@ class _LockScreenContainerState extends State<LockScreenContainer>
       ),
     )..repeat(reverse: true);
 
+    //Reset the currently selected item
     Helper.focusedItem = 2;
+
+    _timer = Timer.periodic(
+      const Duration(seconds: 10),
+      (t) {
+        Ari.randomIdle();
+      },
+    );
   }
 
   @override
   void dispose() {
     _blinkingTextController.dispose();
+    _timer.cancel();
     super.dispose();
   }
 

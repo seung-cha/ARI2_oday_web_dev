@@ -60,6 +60,7 @@ class CapabilitiesPanel extends StatefulWidget {
 }
 
 class _CapabilitiesPanelState extends State<StatefulWidget> {
+  var jokeRequested = false;
   @override
   void initState() {
     super.initState();
@@ -88,6 +89,11 @@ class _CapabilitiesPanelState extends State<StatefulWidget> {
             "JOKE",
             "I will tell you an uncle joke. I will be funny ;D",
             () {
+              if (jokeRequested) return;
+
+              jokeRequested = true;
+              Ari.speak("Okay, let me think of one.");
+              // Delay the execution of script by 1 second.
               Joke.getJoke(programmingJoke: Random().nextInt(10) + 1 > 7).then(
                 (value) => {
                   Helper.joke = value,
@@ -97,11 +103,28 @@ class _CapabilitiesPanelState extends State<StatefulWidget> {
                       Ari.speechDuration(Helper.joke.line2).then(
                         (value_) => {
                           Helper.jokeDuration2 = value_ == -1 ? 3 : value_,
-                          Helper.pageIndex.value = Helper.indexJokePage,
+                          Future.delayed(const Duration(milliseconds: 500))
+                              .then((value) =>
+                                  Helper.pageIndex.value = Helper.indexJokePage)
                         },
                       ),
                     },
                   ),
+                },
+                onError: (obj) {
+                  Future.delayed(const Duration(milliseconds: 1000)).then(
+                    (value) {
+                      const str =
+                          "Sorry, I can't think of one right now. Please ask me later.";
+                      Ari.speak(str);
+                      Ari.speechDuration(str).then(
+                        (value) {
+                          Future.delayed(Duration(seconds: value))
+                              .then((value) => jokeRequested = false);
+                        },
+                      );
+                    },
+                  );
                 },
               );
             },
@@ -119,6 +142,7 @@ class _CapabilitiesPanelState extends State<StatefulWidget> {
             "I will show you what I can do!",
             () {
               Ari.presentation('demo');
+              Helper.pageIndex.value = Helper.indexPresentationLock;
             },
           ),
         )
@@ -136,7 +160,7 @@ class _CapabilitiesPanelState extends State<StatefulWidget> {
           child: itemBuilder(
             Helper.cameraEmojiPath,
             "STATS FOR NERDS",
-            "Other data from the robot",
+            "Other data from me",
             () {
               Helper.pageIndex.value = Helper.indexTechPage;
             },
@@ -150,6 +174,13 @@ class _CapabilitiesPanelState extends State<StatefulWidget> {
                 duration: const Duration(milliseconds: 1000),
                 begin: 300,
                 curve: Curves.easeOutExpo),
+        const Align(
+          alignment: Alignment(0.9, 0.95),
+          child: Text(
+            "Post my picture on social media! #UNSW::Oday.ARI()",
+            style: TextStyle(fontSize: 26),
+          ),
+        ),
         Helper.positionedBackButton(),
       ],
     );

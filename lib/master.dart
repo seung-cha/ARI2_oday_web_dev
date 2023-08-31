@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ari_page/tech_panel.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+import 'presentation_lockpage.dart';
+import 'tech_panel.dart';
 import 'lock_container.dart';
 import 'main_container.dart';
 import 'helper.dart';
 import 'dart:ui';
 import 'info_panel.dart';
 import 'cat_panel.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'ari.dart';
 import 'capabilities.dart';
 import 'joke_page.dart';
@@ -86,6 +88,9 @@ class _MasterPageState extends State<MasterPage> {
                 //Joke
                 case Helper.indexJokePage:
                   return const JokePage();
+
+                case Helper.indexPresentationLock:
+                  return PresentationLockScreen();
                 default:
                   return const LockScreenContainer();
               }

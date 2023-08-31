@@ -15,6 +15,7 @@ class Helper {
   static const int indexCatPage = 6;
   static const int indexJokePage = 7;
   static const int indexTechPage = 8;
+  static const int indexPresentationLock = 9;
 
   static late Joke joke;
   static late int jokeDuration1;
@@ -136,11 +137,11 @@ class Helper {
   //------------ Str -------------------------------
 
   ///Each text contains two strings; one for display and the other for tts.
-  static const ariIntroductionStr = "Hi! I'm Ari."
+  static const ariIntroductionStr = "Hi! I'm ARI."
       " I am a social humanoid robot currently serving as an assistant robot."
       " If you want to know more about what I can do, check out the \"Interaction\" section!";
 
-  static final ariIntroductionSpeech = "${Ari.toAction('wave')}Hi! I'm Ari."
+  static final ariIntroductionSpeech = "${Ari.toAction('wave')}Hi! I'm ARI."
       " I am a social humanoid robot currently serving as an assistant robot."
       " ${Ari.toAction('nod')}If you want to know more about what I can do, check out the interaction section!";
 
@@ -149,9 +150,9 @@ class Helper {
       " From exploring innovative programs to connecting with passionate faculty members, "
       "this event is your gateway to discovering the exciting academic journey that awaits you.";
   static final odaySpeech =
-      "${Ari.toAction('look_around')}Step into a world of possibilities at U-N-S-W's Open Day!"
-      " From exploring innovative programs to connecting with passionate faculty members, "
-      "this event is your gateway to discovering${Ari.toAction('show_left')} the exciting academic journey that awaits you.";
+      "${Ari.toAction('nod')}Step into a world of possibilities at U-N-S-W's Open Day!"
+      " ${Ari.toAction('alive_6')}From exploring innovative programs to connecting with passionate faculty members,${Ari.toAction('show_left')} "
+      "this event is your gateway to discovering the exciting academic journey that awaits you.";
 
   static const feedbackStr = "Thank you for your interest in the robot!"
       " This robot is currently being developed as my research project."

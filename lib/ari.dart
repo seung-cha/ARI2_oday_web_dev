@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:http/http.dart' as http;
 import 'dart:developer' as developer;
 import 'helper.dart';
+import 'dart:math';
 
 /// Refer to the REST interface page for a general list of http endpoints.
 /// http://docs.pal-robotics.com/ari/sdk/23.1/development/js-api.html
@@ -28,6 +29,11 @@ class Ari {
         },
       ),
     );
+  }
+
+  static void randomIdle() {
+    final str = 'alive_${Random().nextInt(8)}';
+    motion(str);
   }
 
   /// Get the image displayed by the front-camera.
