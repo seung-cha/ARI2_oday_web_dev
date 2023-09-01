@@ -110,17 +110,12 @@ class _CapabilitiesPanelState extends State<StatefulWidget> {
                   ),
                 },
                 onError: (obj) {
-                  Future.delayed(const Duration(milliseconds: 1000)).then(
+                  Future.delayed(const Duration(milliseconds: 2000)).then(
                     (value) {
                       const str =
                           "Sorry, I can't think of one right now. Please ask me later.";
                       Ari.speak(str);
-                      Ari.speechDuration(str).then(
-                        (value) {
-                          Future.delayed(Duration(seconds: value))
-                              .then((value) => jokeRequested = false);
-                        },
-                      );
+                      jokeRequested = false;
                     },
                   );
                 },
@@ -175,7 +170,7 @@ class _CapabilitiesPanelState extends State<StatefulWidget> {
         Align(
           alignment: const Alignment(0.9, 0.95),
           child: Text(
-            "Post my picture on social media! #UNSW::Oday.ARI()",
+            "Post my pictures on social media! #unswari",
             style: Helper.fontBaloo(fontSize: 26),
           ),
         ),
