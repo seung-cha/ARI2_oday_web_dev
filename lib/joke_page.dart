@@ -26,7 +26,7 @@ class _JokePageState extends State<JokePage> {
     return Center(
       child: Text(
         line,
-        style: const TextStyle(fontSize: 36),
+        style: Helper.fontBaloo(fontSize: 36),
       )
           .animate(
             delay: Duration(seconds: Helper.jokeDuration1 + 2),

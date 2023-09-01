@@ -9,10 +9,10 @@ class PresentationLockScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
+    return Center(
       child: Text(
         "Hey, look at me go! :D",
-        style: TextStyle(fontSize: 52),
+        style: Helper.fontBaloo(fontSize: 52),
       ),
     );
   }
