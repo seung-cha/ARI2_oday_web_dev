@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'ari.dart';
 import 'helper.dart';
 
@@ -66,10 +67,13 @@ class _LockScreenContainerState extends State<LockScreenContainer>
               child: Text(
                 'Discover Your Next Step',
                 textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.black, fontSize: 96),
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 96,
+                ),
               ),
             ),
-            const Positioned(
+            Positioned(
               top: 360,
               right: 0,
               width: 1280,
@@ -77,7 +81,7 @@ class _LockScreenContainerState extends State<LockScreenContainer>
               child: Text(
                 'UNSW OPEN DAY',
                 textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.black, fontSize: 96),
+                style: Helper.fontBayon(fontSize: 96),
               ),
             ),
             Positioned(
@@ -87,10 +91,10 @@ class _LockScreenContainerState extends State<LockScreenContainer>
               height: 100,
               child: FadeTransition(
                 opacity: _blinkingTextController,
-                child: const Text(
+                child: Text(
                   'TOUCH TO BEGIN',
                   textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.black, fontSize: 40),
+                  style: Helper.fontBayon(fontSize: 40),
                 ),
               ),
             ),

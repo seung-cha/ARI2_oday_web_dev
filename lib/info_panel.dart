@@ -58,7 +58,7 @@ class _InformationPanelState extends State<InformationPanel> {
           height: 300,
           child: Text(
             widget.description,
-            style: const TextStyle(fontSize: 36),
+            style: Helper.fontBaloo(fontSize: 36),
             textAlign: TextAlign.center,
           ),
         ).animate().fade(duration: const Duration(milliseconds: 1300)).moveY(

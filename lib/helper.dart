@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'ari.dart';
 import 'joke.dart';
 
@@ -93,12 +94,24 @@ class Helper {
                 child: Text(
                   description,
                   textAlign: TextAlign.center,
-                  style: const TextStyle(fontSize: 48, color: Colors.black),
+                  style: fontBaloo(fontSize: 48, color: Colors.black),
                 ),
               ),
             ],
           )),
     );
+  }
+
+  //--------------------Fonts----------------------------------------
+  static TextStyle fontBayon(
+      {Color color = Colors.black, double fontSize = 32}) {
+    return GoogleFonts.bayon(color: color, fontSize: fontSize);
+  }
+
+  static TextStyle fontBaloo(
+      {Color color = Colors.black, double fontSize = 32}) {
+    return GoogleFonts.baloo2(
+        color: color, fontSize: fontSize, fontWeight: FontWeight.bold);
   }
 
   //bordered image
@@ -110,12 +123,6 @@ class Helper {
         decoration: BoxDecoration(
             image: DecorationImage(image: AssetImage(path), fit: BoxFit.cover),
             borderRadius: BorderRadius.circular(radius)));
-  }
-
-  ///To be deleted
-  static void printWrapped(String text) {
-    final pattern = RegExp('.{1,800}'); // 800 is the size of each chunk
-    pattern.allMatches(text).forEach((match) => print(match.group(0)));
   }
 
   //------------ Emoji -----------------------------
@@ -131,7 +138,7 @@ class Helper {
   static const qrCodePath = 'images/qrcode.jpg';
   //------------------------------------------------
   //------------ Image -----------------------------
-  static const ariImagePath = 'images/ari_face.jpg';
+  static const ariImagePath = 'images/ari_hat.jpg';
   static const odayImagePath = 'images/unsw_person.png';
   //------------------------------------------------
   //------------ Str -------------------------------

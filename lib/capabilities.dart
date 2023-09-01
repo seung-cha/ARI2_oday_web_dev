@@ -1,10 +1,8 @@
-import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'helper.dart';
 import 'ari.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'joke.dart';
-import 'joke_page.dart';
 import 'dart:math';
 
 Widget itemBuilder(
@@ -44,7 +42,7 @@ Widget itemBuilder(
               child: Text(
                 description,
                 textAlign: TextAlign.center,
-                style: const TextStyle(fontSize: 32, color: Colors.black),
+                style: Helper.fontBaloo(fontSize: 32, color: Colors.black),
               ),
             ),
           ],
@@ -174,11 +172,11 @@ class _CapabilitiesPanelState extends State<StatefulWidget> {
                 duration: const Duration(milliseconds: 1000),
                 begin: 300,
                 curve: Curves.easeOutExpo),
-        const Align(
-          alignment: Alignment(0.9, 0.95),
+        Align(
+          alignment: const Alignment(0.9, 0.95),
           child: Text(
             "Post my picture on social media! #UNSW::Oday.ARI()",
-            style: TextStyle(fontSize: 26),
+            style: Helper.fontBaloo(fontSize: 26),
           ),
         ),
         Helper.positionedBackButton(),

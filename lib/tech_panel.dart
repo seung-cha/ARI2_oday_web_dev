@@ -32,7 +32,6 @@ class _TechPanelState extends State<TechPanel> {
   List<Text> coordinateLog = [];
 
   Future<void> subscribeFaceCoordinates(Map<String, dynamic> msg) async {
-    Helper.printWrapped(msg.toString());
     msg.remove('do_rectify');
     coordinateLog
         .add(Text(msg.toString(), style: const TextStyle(fontSize: fontSize)));
@@ -95,10 +94,6 @@ class _TechPanelState extends State<TechPanel> {
   Future<void> subscribeTTS(Map<String, dynamic> msg) async {
     speech = msg['incremental'];
     setState(() {});
-  }
-
-  Future<void> debugPrint(Map<String, dynamic> msg) async {
-    Helper.printWrapped(msg['pose']['orientation'].toString());
   }
 
   Future<void> subscribeAudioLocation(Map<String, dynamic> msg) async {

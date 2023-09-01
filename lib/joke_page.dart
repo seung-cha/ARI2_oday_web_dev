@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'helper.dart';
-import 'dart:async';
 import 'ari.dart';
 
 class JokePage extends StatefulWidget {

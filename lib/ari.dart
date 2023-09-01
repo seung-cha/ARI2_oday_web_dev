@@ -1,8 +1,6 @@
 import 'dart:convert';
 import 'dart:typed_data';
 import 'package:http/http.dart' as http;
-import 'dart:developer' as developer;
-import 'helper.dart';
 import 'dart:math';
 
 /// Refer to the REST interface page for a general list of http endpoints.
